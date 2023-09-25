@@ -25,8 +25,6 @@ def fortune_teller():
     elif random_integer == 6:
         print("Awswer: Absolutely.")
 
-#fortune_teller()
-
 def knock_knock_joke():
     print("Knock. Knock.")
     done = False
@@ -46,23 +44,58 @@ def knock_knock_joke():
             done = True
             break
 
-knock_knock_joke()
+def mad_lib():
+  name = input("Choose a name: ")
+  adjective = input("Choose an adjective: ")
+  noun = input("Choose a noun: ")
+  verb = input("Choose a verb: ")
+  print(name + " is " + adjective + " " + noun + " and " + verb + " their friends.")
 
-#def mad_lib():
+def mainmenu(menu_number):
+    if menu_number == 1:
+      print("FORTUNE TELLER: ")
+      return fortune_teller()
+    elif menu_number == 2:
+      print("KNOCK KNOCK JOKE: ")
+      return knock_knock_joke()
+    elif menu_number == 3:
+      print("MAD LIB: ")
+      return mad_lib()
+    else:
+      print("Error: Invalid Input.")
 '''
+# Test
+mainmenu(1)
+mainmenu(2)
+mainmenu(3)
+mainmenu("hi")
+'''
+
 def main_menu():
-    print("Activites:\n 1) Fortune Teller\n 2) Knock Knock Joke\n 3) mad lib")
-    done = False
-    while not done:
-        user_input3 = input("Number a number to choose your activity: ")
-        if user_input3 != "1" or user_input3 != "2" or user_input3 != "3":
-            print("Error: Invalid input. Please try again")
-        else:
-            print("Okay!")
-            done = True
-            break
-    done = True
-    break
+  done = False
+  while not done:
+    print("ACTIVITY OPTIONS: \n 1) Fortune Teller \n 2) Knock Knock Joke \n 3) Mad lib")
+    try:
+      user_input4 = float(input("Choose a number to select your activity: "))
+      if user_input4 == 1:
+        print("FORTUNE TELLER: ")
+        return fortune_teller()
+        done = True
+        break
+      elif user_input4 == 2:
+        print("KNOCK KNOCK JOKE: ")
+        return knock_knock_joke()
+        done = True
+        break
+      elif user_input4 == 3:
+        print("MAD LIB: ")
+        done = True
+        break
+        return mad_lib()
+      else:
+        print("Error: Invalid input. Please try again.")
+    except ValueError:
+      print("Error: Invalid input. Please try again.")
+      continue
 
-#main_menu()
-'''
+main_menu()
