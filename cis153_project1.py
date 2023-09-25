@@ -40,9 +40,9 @@ def knock_knock_joke():
                 user_input2 = input("Response: ")
                 if user_input2 != "Why are you crying?":
                     print("That is not how this works.")
-                #elif user_input2 == "Why are you crying?":
-                    #done = True
-                    #break
+                elif user_input2 == "Why are you crying?":
+                    done = True
+                    break
             done = True
             break
 
