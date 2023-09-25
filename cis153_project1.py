@@ -25,6 +25,8 @@ def fortune_teller():
     elif random_integer == 6:
         print("Awswer: Absolutely.")
 
+#fortune_teller()
+
 def knock_knock_joke():
     print("Knock. Knock.")
     done = False
@@ -38,24 +40,29 @@ def knock_knock_joke():
                 user_input2 = input("Response: ")
                 if user_input2 != "Why are you crying?":
                     print("That is not how this works.")
-                elif user_input2 == "Why are you crying?":
-                    done = True
-                    break
+                #elif user_input2 == "Why are you crying?":
+                    #done = True
+                    #break
             done = True
             break
 
-#def mad_lib():
+knock_knock_joke()
 
+#def mad_lib():
+'''
 def main_menu():
     print("Activites:\n 1) Fortune Teller\n 2) Knock Knock Joke\n 3) mad lib")
     done = False
     while not done:
         user_input3 = input("Number a number to choose your activity: ")
-        if user_input3 != "1" and user_input3 != "2" and user_input3 != "3":
+        if user_input3 != "1" or user_input3 != "2" or user_input3 != "3":
             print("Error: Invalid input. Please try again")
         else:
             print("Okay!")
             done = True
             break
+    done = True
+    break
 
 #main_menu()
+'''
