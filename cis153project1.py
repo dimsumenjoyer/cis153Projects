@@ -36,9 +36,9 @@ def fortune_teller(randominteger):
     elif randominteger == 4:
         print("Answer: Try again later.")
     elif randominteger == 5:
-        print("Awswer: No chance.")
+        print("Answer: No chance.")
     elif randominteger == 6:
-        print("Awswer: Absolutely.")
+        print("Answer: Absolutely.")
     return
 
 def knock_knock_joke():
