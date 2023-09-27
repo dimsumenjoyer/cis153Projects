@@ -27,7 +27,6 @@ def random_integer():
 def fortune_teller(randominteger):
     input("Enter a question: ")
     randominteger = random_integer()
-    print(randominteger)
     if randominteger == 1:
         print("Answer: Yes.")
     elif randominteger == 2:
