@@ -13,8 +13,6 @@ import random
 def generate_username(first_name, last_name):
     random_number = random.randint(1000,9999)
     username = first_name[0] + last_name + str(random_number)
-    # add create_username into user_file
-    #open("users_file", "a+")
     username_lower = username.lower()
     return username_lower
 
@@ -32,17 +30,17 @@ def getuserpassword():
 
 def validatepassword():
     password = getuserpassword()
-    if "!", "@", "$", or "?" in password:
+    special_characters = ["!", "@", "$", "?"] 
+    if special_characters in password:
         print("Passwords cannot contain special characters: !, @, $, ?.")
     password_length = len(password)
-    getuserpassword()
     if password_length < 5:
-    print(f"Passwords must be 5 characters long. This password is only {password_length} long.")
-    #getuserpassword()
-    if password_length <= 5 and "!", "@", "$", and "?" not in password:
+        print(f"Passwords must be 5 characters long. This password is only {password_length} long.")
+    if password_length <= 5 and special_characters not in password:
         unencrypted_password = getuserpassword()
     return unencrypted_password
 
+validatepassword()
 '''
 def encryptpassword(unencrypted_password):
     for
