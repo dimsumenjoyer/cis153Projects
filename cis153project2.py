@@ -10,15 +10,21 @@ import random
 #users_file = open("users.md", "w+")
 #log_file = open("log.md", "w+")
 
-def generate_username(first_name, last_name):
+def last_name():
+    last_name = input("What is your surname?: ")
+    return last_name 
+
+def first_name():
+    first_name = input("What is your given name?: ")
+    return first_name
+
+def generate_username():
     random_number = random.randint(1000,9999)
-    username = first_name[0] + last_name + str(random_number)
+    given_name = first_name()
+    surname = last_name()
+    username = given_name[0] + surname + str(random_number)
     username_lower = username.lower()
     return username_lower
-
-#print(generate_username("Victor", "Van"))
-#print(generate_username("John", "Doe"))
-#print(generate_username("Jane", "Doe"))
 
 def getuserpassword():
     username = generate_username()
