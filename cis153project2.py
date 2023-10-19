@@ -46,12 +46,15 @@ def validatepassword():
         unencrypted_password = getuserpassword()
     return unencrypted_password
 
-validatepassword()
-'''
 def encryptpassword(unencrypted_password):
-    for
+    encrypted_password = unencrypted_password
+    encrypted_password = encrypted_password.replace("i", "!")
+    encrypted_password = encrypted_password.replace("a", "@")
+    encrypted_password = encrypted_password.replace("S", "$")
+    encrypted_password = encrypted_password.replace("J", "?")
     return encrypted_password
 
+'''
 def login_existing_user():
     username_login = generate_username()
     return
