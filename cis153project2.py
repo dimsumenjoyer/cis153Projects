@@ -32,33 +32,36 @@ def getuserpassword():
     user_file_data = users_file.read()
     if username in user_file_data:
         password = input("Create a password: ")
+    else:
+        print("Error: User does not exist.")
         return password
 
 def validatepassword():
     password = getuserpassword()
     special_characters = ["!", "@", "$", "?"] 
     if special_characters in password:
-        print("Passwords cannot contain special characters: !, @, $, ?.")
+        print("Error: Passwords cannot contain special characters: !, @, $, ?.")
     password_length = len(password)
-    if password_length < 5:
-        print(f"Passwords must be 5 characters long. This password is only {password_length} long.")
-    if password_length <= 5 and special_characters not in password:
+    elif password_length < 5:
+        print(f"Error: Passwords must be 5 characters long. This password is only {password_length} long.")
+    elif password_length <= 5 and special_characters not in password:
+        print(f"Error: Passwords must be 5 characters long. This password is only {password_length} long and have no special characters: !, @, $, ?.")
+    else:
         unencrypted_password = getuserpassword()
     return unencrypted_password
 
 def encryptpassword(unencrypted_password):
     encrypted_password = unencrypted_password
-    encrypted_password = encrypted_password.replace("i", "!")
-    encrypted_password = encrypted_password.replace("a", "@")
-    encrypted_password = encrypted_password.replace("S", "$")
-    encrypted_password = encrypted_password.replace("J", "?")
+    encrypted_password = encrypted_password.replace("i", "!").replace("a", "@").replace("S", "$").replace("J", "?")
     return encrypted_password
 
-'''
 def login_existing_user():
+    done = False
+    while not done:
+        
     username_login = generate_username()
     return
-
+'''
 def review_log():
     open_logfile = open("log_file")
     for x in log_file:
