@@ -7,19 +7,19 @@ Professor Penta
 
 import random
 
-#users_file = open("users.md", "w+")
-#log_file = open("log.md", "w+")
+# users_file = open("users.md", "w+")
+# log_file = open("log.md", "w+")
 
 def last_name():
     last_name = input("What is your surname?: ")
-    return last_name 
+    return last_name
 
 def first_name():
     first_name = input("What is your given name?: ")
     return first_name
 
 def generate_username():
-    random_number = random.randint(1000,9999)
+    random_number = random.randint(1000, 9999)
     given_name = first_name()
     surname = last_name()
     username = given_name[0] + surname + str(random_number)
@@ -32,35 +32,39 @@ def getuserpassword():
     user_file_data = users_file.read()
     if username in user_file_data:
         password = input("Create a password: ")
+        return password
     else:
         print("Error: User does not exist.")
-        return password
+        return
 
 def validatepassword():
     password = getuserpassword()
-    special_characters = ["!", "@", "$", "?"] 
+    special_characters = ["!", "@", "$", "?"]
+    password_length = len(password)
     if special_characters in password:
         print("Error: Passwords cannot contain special characters: !, @, $, ?.")
-    password_length = len(password)
     elif password_length < 5:
         print(f"Error: Passwords must be 5 characters long. This password is only {password_length} long.")
     elif password_length <= 5 and special_characters not in password:
         print(f"Error: Passwords must be 5 characters long. This password is only {password_length} long and have no special characters: !, @, $, ?.")
     else:
         unencrypted_password = getuserpassword()
-    return unencrypted_password
+        return unencrypted_password
 
-def encryptpassword(unencrypted_password):
-    encrypted_password = unencrypted_password
+
+def encryptpassword():
+    encrypted_password = validatepassword()
     encrypted_password = encrypted_password.replace("i", "!").replace("a", "@").replace("S", "$").replace("J", "?")
     return encrypted_password
+
 
 def login_existing_user():
     done = False
     while not done:
-        
-    username_login = generate_username()
+        username_login = generate_username()
     return
+
+
 '''
 def review_log():
     open_logfile = open("log_file")
