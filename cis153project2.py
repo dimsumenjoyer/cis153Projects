@@ -1,6 +1,6 @@
 '''
 Victor Van 00319912
-CIS153: Project 1
+CIS153: Project 2 
 Professor Penta
 10/16/2023, Due: 11/1/2023
 '''
@@ -34,59 +34,80 @@ def getuserpassword():
         password = input("Create a password: ")
         return password
     else:
-        print("Error: User does not exist.")
+        print("Error: User does not exist. Make a user.")
         return
+
+def has_special_character():
+    password = getuserpassword()
+    if "!" in password or "@" in password or "$" in password or "?" in password:
+        print("Error: Passwords cannot contain special characters: !, @, $, ?.")
+        return True
+    else:
+        return False 
 
 def validatepassword():
     password = getuserpassword()
-    special_characters = ["!", "@", "$", "?"]
     password_length = len(password)
-    if special_characters in password:
-        print("Error: Passwords cannot contain special characters: !, @, $, ?.")
+    if password_length < 5 and has_special_character():
+        print(f"Error: Passwords must be 5 characters long. This password is {password_length} long and contains special characters: !, @, $, ?.")
     elif password_length < 5:
         print(f"Error: Passwords must be 5 characters long. This password is only {password_length} long.")
-    elif password_length <= 5 and special_characters not in password:
-        print(f"Error: Passwords must be 5 characters long. This password is only {password_length} long and have no special characters: !, @, $, ?.")
+    elif has_special_character():
+        print("Error: This password has special characters: !, @, $, ?")
     else:
         unencrypted_password = getuserpassword()
         return unencrypted_password
-
 
 def encryptpassword():
     encrypted_password = validatepassword()
     encrypted_password = encrypted_password.replace("i", "!").replace("a", "@").replace("S", "$").replace("J", "?")
     return encrypted_password
 
+def correct_password():
+    input_password = input("Enter your password: ")
+    if input_password == encryptpassword():
+        print("Welcome!")
+        return True
+    else:
+        return False
+            
 
 def login_existing_user():
     done = False
     while not done:
         username_login = generate_username()
+        users_file = open("users.md", "r+")
+        user_file_data = users_file.read()
+        if username_login in user_file_data:
+            correct_password()
+        else:
+            print("Error: User does not exist.")
+            print("FAIL.")
     return
 
-
-'''
 def review_log():
-    open_logfile = open("log_file")
-    for x in log_file:
-        print(x)
-    open_logfile.close()
+
+def display_review_log():
+    logfile = open("log_file")
+    for line in logfile:
+        print(line)
+    logfile.close()
     return   
 
 def menu():
-    print("Options: \n1) Login,\n2)Create Account,\n3)Review Log")
+    print("Options:\n1) Login,\n2) Create Account,\n3) Review Log,\n4) Exit")
     try:
         user_input = int(input(("Choose an option: ")))
         done = False
         while not done:
             existing_user = login_existing_user()
             open_review_log = review_log()
-            if user_input == "done":
+            if user_input == 4:
+                print("Done!")
                 done = True
                 break
-            if user_input != [1,2,3] #1 and user_input != 2 and user_input != 3:
+            if user_input != [1,2,3] #1 and user_input != 2 and user_input != 3 and user_input != 4:
                 print("Error: Invalid input. Please try again.")
     except ValueError:
             print("Error: Invalid input. Please try again.")
     return
-'''
