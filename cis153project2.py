@@ -33,7 +33,7 @@ def create_userpassword():
 
 def create_account():
     create_userpassword()
-    user_info = generate_username + encryptpassword()
+    user_info = generate_username() + encryptpassword()
     user_file(user_info)
     return
 
