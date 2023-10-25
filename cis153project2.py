@@ -88,7 +88,7 @@ def login_existing_user():
         if inputed_username == username in user_file_data:
             correct_password()
             print("Login successful.")
-            review_log(f"Login sucessful - {username}\n")
+            review_log(f"Login successful - {username}\n")
             done = True
             break
         else:
@@ -112,7 +112,7 @@ def display_review_log():
     logfile = open("log_file.md", "r")
     print(logfile.read())
     logfile.close()
-    return 
+    return
 
 def menu():
     print("Options:\n1) Login\n2) Create Account\n3) Review Log\n4) Exit")
