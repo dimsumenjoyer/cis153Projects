@@ -7,8 +7,8 @@ Professor Penta
 
 import random
 
-users_file = open("users.md", "w+")
-log_file = open("log_file.md", "w+")
+users_file = open("users.md", "a")
+log_file = open("log_file.md", "a")
 
 def generate_username():
     random_number = random.randint(1000, 9999)
@@ -32,9 +32,12 @@ def create_userpassword():
         return
 
 def create_account():
+    generate_username()
     create_userpassword()
-    user_info = generate_username() + encryptpassword()
-    user_file(user_info)
+    if generate_username() in users_file:
+        user_info = generate_username() + encryptpassword()
+        print("Account created!")
+        user_file(user_info + "\n")
     return
 
 def has_special_character():
@@ -51,7 +54,7 @@ def validatepassword():
     password_length = len(password)
     if password_length < 5 and has_special_character():
         print(f"Error: Passwords must be 5 characters long. This password is {password_length} long and contains special characters: !, @, $, ?.")
-        review_log("Bad Password - FAIL - " + username)
+        review_log("Bad Password - FAIL - " + username + "\n")
     elif password_length < 5:
         print(f"Error: Passwords must be 5 or more characters long. This password is only {password_length} long.")
         review_log("Bad Password - FAIL - " + username)
@@ -81,11 +84,11 @@ def correct_password():
 def login_existing_user():
     done = False
     while not done:
-        inputed_username = input("What is your username?: ")
-        username = generate_username()
+        username = input("What is your username?: ")
+        #username = generate_username()
         users_file = open("users.md", "r")
         user_file_data = users_file.read()
-        if inputed_username == username in user_file_data:
+        if username in user_file_data:
             correct_password()
             print("Login successful.")
             review_log(f"Login successful - {username}\n")
@@ -93,17 +96,18 @@ def login_existing_user():
             break
         else:
             print("Error: User does not exist.")
-            print("FAIL.")
+            done = True
+            break
     return
 
 def user_file(user_info):
-    file = open("users.md", "a")
+    file = open("users.md", "a+")
     file.write(user_info)
     file.close()
     return
 
 def review_log(message):
-    file = open("log_file.md", "a")
+    file = open("log_file.md", "a+")
     file.write(message)
     file.close()
     return
@@ -129,10 +133,16 @@ def menu():
             elif user_input == 1:
                 print("1) Login")
                 login_existing_user()
+                done = True
+                break
             elif user_input == 2:
                 create_account()
+                done = True
+                break
             elif user_input == 3:
                 display_review_log()
+                done = True
+                break
     except ValueError:
             print("Error: Invalid input. Please try again.")
     return
