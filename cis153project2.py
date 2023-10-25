@@ -28,7 +28,7 @@ def generate_username():
     username_lower = username.lower()
     user_info = username_lower
     user_file(user_info)
-    review_log("New User - OK - " + username_lower)
+    review_log("New User - OK - " + username_lower + "\n")
     return username_lower
 
 def create_userpassword():
@@ -44,7 +44,7 @@ def create_userpassword():
 
 def create_account():
     create_userpassword()
-    user_info = generate_username + encryptpassword
+    user_info = generate_username + encryptpassword()
     user_file(user_info)
     return
 
@@ -110,6 +110,7 @@ def user_file(user_info):
     file = open("users.md", "a")
     file.write(user_info)
     file.close()
+    return
 
 def review_log(message):
     file = open("log_file.md", "a")
@@ -119,7 +120,9 @@ def review_log(message):
 
 def display_review_log():
     logfile = open("log_file.md")
+    increments = 0
     for line in logfile:
+        increments += 1
         print(line)
     logfile.close()
     return 
