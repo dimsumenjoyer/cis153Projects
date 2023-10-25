@@ -8,7 +8,7 @@ Professor Penta
 import random
 
 users_file = open("users.md", "w+")
-log_file = open("log.md", "w+")
+log_file = open("log_file.md", "w+")
 
 def last_name():
     last_name = input("What is your surname?: ")
@@ -26,11 +26,14 @@ def generate_username():
     surname = last_name()
     username = given_name[0] + surname + str(random_number)
     username_lower = username.lower()
+    user_info = username_lower
+    user_file(user_info)
+    review_log("New User - OK - " + username_lower)
     return username_lower
 
 def create_userpassword():
     username = generate_username()
-    users_file = open("users.md", "r+")
+    users_file = open("users.md", "r")
     user_file_data = users_file.read()
     if username in user_file_data:
         password = input("Create a password: ")
@@ -40,8 +43,9 @@ def create_userpassword():
         return
 
 def create_account():
-    generate_username()
     create_userpassword()
+    user_info = generate_username + encryptpassword
+    user_file(user_info)
     return
 
 def has_special_character():
@@ -53,21 +57,27 @@ def has_special_character():
         return False 
 
 def validatepassword():
+    username = generate_username()
     password = create_userpassword()
     password_length = len(password)
     if password_length < 5 and has_special_character():
         print(f"Error: Passwords must be 5 characters long. This password is {password_length} long and contains special characters: !, @, $, ?.")
+        review_log("Bad Password - FAIL - " + username)
     elif password_length < 5:
-        print(f"Error: Passwords must be 5 characters long. This password is only {password_length} long.")
+        print(f"Error: Passwords must be 5 or more characters long. This password is only {password_length} long.")
+        review_log("Bad Password - FAIL - " + username)
     elif has_special_character():
         print("Error: This password has special characters: !, @, $, ?")
     else:
         unencrypted_password = create_userpassword()
+        review_log("Bad Password - FAIL - " + username)
         return unencrypted_password
 
 def encryptpassword():
     encrypted_password = validatepassword()
     encrypted_password = encrypted_password.replace("i", "!").replace("a", "@").replace("S", "$").replace("J", "?")
+    user_info = encrypted_password
+    user_file(user_info)
     return encrypted_password
 
 def correct_password():
@@ -82,28 +92,40 @@ def correct_password():
 def login_existing_user():
     done = False
     while not done:
-        username_login = generate_username()
-        users_file = open("users.md", "r+")
+        inputed_username = input("What is your username?: ")
+        username = generate_username()
+        users_file = open("users.md", "r")
         user_file_data = users_file.read()
-        if username_login in user_file_data:
+        if inputed_username == username in user_file_data:
             correct_password()
+            print("Login successful.")
+            done = True
+            break
         else:
             print("Error: User does not exist.")
             print("FAIL.")
     return
 
-def review_log():
+def user_file(user_info):
+    file = open("users.md", "a")
+    file.write(user_info)
+    file.close()
+
+def review_log(message):
+    file = open("log_file.md", "a")
+    file.write(message)
+    file.close()
     return
 
 def display_review_log():
-    logfile = open("log_file")
+    logfile = open("log_file.md")
     for line in logfile:
         print(line)
     logfile.close()
-    return   
+    return 
 
 def menu():
-    print("Options:\n1) Login,\n2) Create Account,\n3) Review Log,\n4) Exit")
+    print("Options:\n1) Login\n2) Create Account\n3) Review Log\n4) Exit")
     try:
         user_input = int(input(("Choose an option: ")))
         done = False
@@ -124,3 +146,5 @@ def menu():
     except ValueError:
             print("Error: Invalid input. Please try again.")
     return
+
+menu()
