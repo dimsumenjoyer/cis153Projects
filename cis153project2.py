@@ -10,26 +10,15 @@ import random
 users_file = open("users.md", "w+")
 log_file = open("log_file.md", "w+")
 
-def last_name():
-    last_name = input("What is your surname?: ")
-    return last_name
-
-def first_name():
-    first_name = input("What is your given name?: ")
-    last_name()
-    return first_name
-
 def generate_username():
-    first_name()
     random_number = random.randint(1000, 9999)
-    given_name = first_name()
-    surname = last_name()
+    given_name = input("What is your given name?: ")
+    surname = input("What is your surname?: ")
     username = given_name[0] + surname + str(random_number)
-    username_lower = username.lower()
-    user_info = username_lower
+    user_info = username.lower()
     user_file(user_info)
-    review_log("New User - OK - " + username_lower + "\n")
-    return username_lower
+    review_log(f"New User - OK - {username.lower()}\n")
+    return username
 
 def create_userpassword():
     username = generate_username()
@@ -70,7 +59,7 @@ def validatepassword():
         print("Error: This password has special characters: !, @, $, ?")
     else:
         unencrypted_password = create_userpassword()
-        review_log("Bad Password - FAIL - " + username)
+        review_log(f"Bad Password - FAIL - {username}\n")
         return unencrypted_password
 
 def encryptpassword():
@@ -99,6 +88,7 @@ def login_existing_user():
         if inputed_username == username in user_file_data:
             correct_password()
             print("Login successful.")
+            review_log(f"Login sucessful - {username}\n")
             done = True
             break
         else:
@@ -119,11 +109,8 @@ def review_log(message):
     return
 
 def display_review_log():
-    logfile = open("log_file.md")
-    increments = 0
-    for line in logfile:
-        increments += 1
-        print(line)
+    logfile = open("log_file.md", "r")
+    print(logfile.read())
     logfile.close()
     return 
 
