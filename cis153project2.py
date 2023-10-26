@@ -147,6 +147,7 @@ def menu():
                 break
     except ValueError:
             print("Error: Invalid input. Please try again.")
+                continue
     return
 
 menu()
