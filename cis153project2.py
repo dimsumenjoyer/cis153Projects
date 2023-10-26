@@ -16,15 +16,15 @@ def generate_username():
     surname = input("What is your surname?: ")
     username = given_name[0] + surname + str(random_number)
     user_info = username.lower()
-    user_file(user_info)
+    user_file(user_info + "\n")
     review_log(f"New User - OK - {username.lower()}\n")
     return username
 
 def create_userpassword():
-    username = generate_username()
+    #username = generate_username()
     users_file = open("users.md", "r")
     user_file_data = users_file.read()
-    if username in user_file_data:
+    if generate_username() in user_file_data:
         password = input("Create a password: ")
         return password
     else:
@@ -130,6 +130,8 @@ def menu():
                 break
             elif user_input != 1 and user_input != 2 and user_input != 3 and user_input != 4:
                 print("Error: Invalid input. Please try again.")
+                done = True
+                break
             elif user_input == 1:
                 print("1) Login")
                 login_existing_user()
