@@ -8,9 +8,8 @@ Professor Penta
 import random
 
 def write_to_user_file(user_info):
-    file = open("users.md", "a+")
-    file.write(user_info)
-    file.close()
+    with open("users.md", "a+") as users_file:
+        users_file.write(user_info)
     return
 
 def write_to_review_log(message):
@@ -79,7 +78,7 @@ def encryptpassword(password):
 def correct_password(username, encrypted_password):
     input_password = input("Enter your password: ")
     with open("users.md", "a+") as users_file:
-        if input_password == encrypted_password in users_file:
+        if input_password.replace("i", "!").replace("a", "@").replace("S", "$").replace("J", "?") == encrypted_password in users_file:
             print(f"Welcome {username}!")
             return True
         else:
@@ -114,6 +113,7 @@ def login():
             done = True
         else:
             print("Error: Login unsuccessful.")
+            write_to_review_log(f"Login attempt failed: {inputed_username}.\n")
     return
 
 def menu():
@@ -128,12 +128,13 @@ def menu():
             elif option == 2:
                 create_account()
             elif option == 3:
+                print("REVIEW LOG:\n")
                 display_review_log()
             elif option == 4:
                 print("Exited.")
                 done = True
             else:
-                print(f"Error: Invalid input: {option}. Please try again.")
+                print(f"Error: Invalid input: {option}. \nPlease try again.")
         except ValueError:
             print(f"Error: Invalid input: {option}.\nPlease try again.")
     return
