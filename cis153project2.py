@@ -100,6 +100,7 @@ def create_account():
     username = f"{generate_username()}\n"
     write_to_user_file(username)
     write_to_review_log(f"{username} has created an account.\n")
+    print(f"Welcome {username}!")
     password = password_handling(username)
     write_to_user_file(f"{password}\n\n")
     return
