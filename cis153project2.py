@@ -97,12 +97,12 @@ def password_handling(username):
     return encrypted_password
 
 def create_account():
-    username = f"{generate_username()}\n"
-    write_to_user_file(username)
+    username = generate_username()
+    write_to_user_file(username) # commenting out this line creates errors for some reason
     write_to_review_log(f"{username} has created an account.\n")
     print(f"Welcome {username}!")
     password = password_handling(username)
-    write_to_user_file(f"{password}\n\n")
+    write_to_user_file(f"{username}::{password}")
     return
 
 def login():
@@ -111,7 +111,6 @@ def login():
         inputed_password = input("password: ")
         if exist_in_users(inputed_username) and exist_in_users(inputed_password):
             print("Login successful!")
-            done = True
         else:
             print("Error: Login unsuccessful.")
             write_to_review_log(f"Login attempt failed: {inputed_username}.\n")
