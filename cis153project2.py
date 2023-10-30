@@ -109,7 +109,7 @@ def login():
     with open("users.md", "r") as file:
         inputed_username = input("username: ")
         inputed_password = input("password: ")
-        if exist_in_users(f"{inputed_username}\n") and exist_in_users(f"{inputed_password}\n\n"):
+        if exist_in_users(inputed_username) and exist_in_users(inputed_password):
             print("Login successful!")
             done = True
         else:
