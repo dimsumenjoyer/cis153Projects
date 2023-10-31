@@ -31,11 +31,13 @@ def generate_username():
     return username 
 
 def exist_in_users(string):
+    wordpass = None
     with open("users.md", "r") as file:
-        if string in file:
-            return True
-        else:
-            return False
+        for line in file:
+            line.startswith(string)
+            index = line.find("::")
+            wordpass = line[index+2:].strip()
+    return wordpass
 
 def create_password(username):
     with open("users.md", "r") as file:
@@ -75,45 +77,45 @@ def encryptpassword(password):
     encrypted_password = password.replace("i", "!").replace("a", "@").replace("S", "$").replace("J", "?")
     return encrypted_password
     
-def correct_password(username, encrypted_password):
-    input_password = input("Enter your password: ")
-    with open("users.md", "a+") as users_file:
-        if input_password.replace("i", "!").replace("a", "@").replace("S", "$").replace("J", "?") == encrypted_password in users_file:
+def correct_password(username, inputed_password):
+    file_password = exist_in_users(username)
+    if file_password is not None:
+        encrypted_input_password = encryptpassword(inputed_password)
+        if encrypted_input_password == file_password:
             print(f"Welcome {username}!")
             return True
-        else:
-            print("Error: Incorrect password.")
-            return False
-
+    print("Error: Incorrect password.")
+    return False
+        
 def password_handling(username):
     encrypted_password = "{Cat meme} Sexy people (ME) suffer the most."
-    done = False
-    while not done:
-        password = create_password(username)
-        if validatepassword(username, password):
-            encrypted_password = encryptpassword(password)
-            write_to_review_log(f"{username} created a password.\n")
-            done = True
+    password = input("Create a password: ")
+    while not validatepassword(username, password):
+        password = input("Create a password: ")
+    encrypted_password = encryptpassword(password)
+    write_to_user_file(f"{username}::{encrypted_password}\n")
     return encrypted_password
 
 def create_account():
-    username = f"{generate_username()}\n"
-    write_to_user_file(username)
+    username = generate_username()
+    password_handling(username)
+    print(f"Welcome {username}!")
     write_to_review_log(f"{username} has created an account.\n")
-    password = password_handling(username)
-    write_to_user_file(f"{password}\n\n")
     return
 
 def login():
-    with open("users.md", "r") as file:
-        inputed_username = input("username: ")
-        inputed_password = input("password: ")
-        if exist_in_users(f"{inputed_username}\n") and exist_in_users(f"{inputed_password}\n\n"):
+    inputed_username = input("username: ")
+    inputed_password = input("password: ")
+    file_password = exist_in_users(inputed_password)
+    if not file_password == None:
+        encrypted_password = exist_in_users(inputed_username) 
+        if encrypted_password == file_password:
             print("Login successful!")
-            done = True
         else:
-            print("Error: Login unsuccessful.")
-            write_to_review_log(f"Login attempt failed: {inputed_username}.\n")
+            print("Error: Login unsuccessful!")
+    else:
+        print("Error: Login unsuccessful.")
+        write_to_review_log(f"Login attempt failed: {inputed_username}.\n")
     return
 
 def menu():
