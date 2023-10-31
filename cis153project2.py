@@ -97,20 +97,20 @@ def password_handling(username):
     return encrypted_password
 
 def create_account():
-    username = generate_username()
-    write_to_user_file(username) # commenting out this line creates errors for some reason
+    username = f"{generate_username()}\n"
+    write_to_user_file(username)
     write_to_review_log(f"{username} has created an account.\n")
-    print(f"Welcome {username}!")
     password = password_handling(username)
-    write_to_user_file(f"{username}::{password}")
+    write_to_user_file(f"{password}\n\n")
     return
 
 def login():
     with open("users.md", "r") as file:
         inputed_username = input("username: ")
         inputed_password = input("password: ")
-        if exist_in_users(inputed_username) and exist_in_users(inputed_password):
+        if exist_in_users(f"{inputed_username}\n") and exist_in_users(f"{inputed_password}\n\n"):
             print("Login successful!")
+            done = True
         else:
             print("Error: Login unsuccessful.")
             write_to_review_log(f"Login attempt failed: {inputed_username}.\n")
