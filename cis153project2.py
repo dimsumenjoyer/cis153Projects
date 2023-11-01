@@ -112,7 +112,7 @@ def login():
         encrypted_password = encryptpassword(inputed_password)
         if encrypted_password == file_password:
             print("Login successful!")
-            write_to_review_log(f"{inputed_username} logged in.")
+            write_to_review_log(f"{inputed_username} logged in.\n")
         else:
             print("Error: Login unsuccessful!")
     else:
