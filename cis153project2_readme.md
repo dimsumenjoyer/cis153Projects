@@ -49,3 +49,8 @@ In the function password_handling, I don't really understand why I had to create
 since it later gets defined in the while loop.
 In the function menu, I don't understand why I had to set option to a integer because, later on,
 option is defined as the integer of an input.
+
+I didn't use any arguments in my generate_username function because I defined first and last names inside that function, but I believe that this is minor.
+
+I also didn't make it so that when someone makes an account, they have to enter their password twice.
+I didn't do it because I feel lazy and I rather focus on my calculus 1 and Mandarin classes.
