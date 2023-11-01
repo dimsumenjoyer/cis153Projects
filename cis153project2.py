@@ -30,13 +30,14 @@ def generate_username():
     username = inputed_username.lower()
     return username 
 
-def exist_in_users(string):
+def exist_in_users(user):
     wordpass = None
     with open("users.md", "r") as file:
         for line in file:
-            line.startswith(string)
+            line.startswith(user)
             index = line.find("::")
-            wordpass = line[index+2:].strip()
+            if line.startswith(user):
+                wordpass = line[index+2:].strip()
     return wordpass
 
 def create_password(username):
@@ -106,11 +107,12 @@ def create_account():
 def login():
     inputed_username = input("username: ")
     inputed_password = input("password: ")
-    file_password = exist_in_users(inputed_password)
+    file_password = exist_in_users(inputed_username)
     if not file_password == None:
-        encrypted_password = exist_in_users(inputed_username) 
+        encrypted_password = encryptpassword(inputed_password)
         if encrypted_password == file_password:
             print("Login successful!")
+            write_to_review_log(f"{inputed_username} logged in.")
         else:
             print("Error: Login unsuccessful!")
     else:
