@@ -17,25 +17,24 @@ def log():
 
 #log()
 
-def requester():
+def find_requester_resource():
     file = open("access_log.txt", "r")
     read_file = file.readlines()
-    find_requester = r'\b^([\w.-]+)\b'
-    find_requesters = re.compile(find_requester)
+    requester_time_resource = "^(\S+) - - \[.+\] \"[A-Z]+ (\S+) "
+    locate_stuff = re.compile(requester_time_resource)
+    requester = ""
+    resource = ""
     requesters_resources = {}
-    #find_requesters = re.compile(find_requester)
-    #matches = line.findall(find_requesters)
     for line in read_file:
-        match_requesters = find_requesters.findall(line)
-        print(match_requesters) # test. It works!
-    if match_requesters not in requesters_resources:
-        #test_requesters[match_requesters] = 1
-    #else:
-        #test_requesters[match_requesters] += 1
+        stuff = locate_stuff.findall(line)
+        if len(stuff) > 0:
+            [(requester, resource)] = stuff
+            print(requester)
+            print(resource)
     file.close()
     return
 
-requester()
+find_requester_resource()
 
 def resources():
     resource = r'\"GET\s(.*?)\sHTTP\/1\.1\"\s(\d+)\s(\d+)'
