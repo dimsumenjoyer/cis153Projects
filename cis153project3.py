@@ -68,8 +68,8 @@ def find_requester_resource():
     requester_of_most_accessed_resource, requests = find_requester_of_most_accessed_resource(requester_time_resource, most_resource)
     most_requester, request_count = find_most_active_requester(requesters)
     print(f"Requester with most requests: {most_requester} - {request_count} requests.")
-    print(f"Requester's most requested resource: {requester_of_most_accessed_resource} - {requests} requests.")
-    print(f"Most resources: {most_resource} - {request_count} times.")
+    print(f"{most_requester}'s most requested resource: {requester_of_most_accessed_resource} - {requests} requests.")
+    print(f"Most requested resource: {most_resource} - {request_count} requests.")
     return
 
 find_requester_resource()
