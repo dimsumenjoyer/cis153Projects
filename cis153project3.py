@@ -16,7 +16,7 @@ def log():
         compiled_data = re.compile(find_requester_time_resource)
         for line in file:
             data = compiled_data.search(line)
-            print(data)
+            #print(data)
     return data
 '''
 
@@ -75,12 +75,12 @@ def find_requester_of_most_accessed_resource(requester_time_resource, most_acces
 def find_requester_resource():
     file = log()
     requester_time_resource, requesters, resources = parse_lines(file)
-    most_resource, request_count = find_most_requested_resource(resources)
+    most_resource, request_count_of_most_requested_resource = find_most_requested_resource(resources)
     requester_of_most_accessed_resource, requests = find_requester_of_most_accessed_resource(requester_time_resource, most_resource)
-    most_requester, request_count = find_most_active_requester(requesters)
-    print(f"Requester with most requests: {most_requester} - {request_count} requests.")
+    most_requester, request_count_from_most_requester = find_most_active_requester(requesters)
+    print(f"Requester with most requests: {most_requester} - {request_count_from_most_requester} requests.")
     print(f"Top requester of most requested resource: {requester_of_most_accessed_resource} - {requests} requests.")
-    print(f"Most requested resource: {most_resource} - {request_count} total requests.")
+    print(f"Most requested resource: {most_resource} - {request_count_of_most_requested_resource} total requests.")
     return
 
 find_requester_resource()
