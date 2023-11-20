@@ -9,6 +9,17 @@ CIS153: Project 3
 
 import re
 
+'''
+def log():
+    with open("access_log.txt", "r") as file:
+        find_requester_time_resource = "^(\S+) - - \[.+\] \"[A-Z]+ (\S+) "
+        compiled_data = re.compile(find_requester_time_resource)
+        for line in file:
+            data = compiled_data.search(line)
+            print(data)
+    return data
+'''
+
 def log():
     with open("access_log.txt", "r") as file:
         data = tuple(file.read().splitlines()) # I don't know how to avoid using intermediate data structures to put it straight into dictionaries
