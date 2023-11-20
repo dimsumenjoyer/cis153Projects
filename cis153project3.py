@@ -11,16 +11,16 @@ import re
 
 def log():
     with open("access_log.txt", "r") as file:
-        fuck_regular_expressions = file.read().splitlines()
-    return fuck_regular_expressions
+        data = tuple(file.read().splitlines()) # I don't know how to avoid using intermediate data structures to put it straight into dictionaries
+    return data
 
-def parse_lines(fuck_regular_expressions):
+def parse_lines(data):
     find_requester_time_resource = "^(\S+) - - \[.+\] \"[A-Z]+ (\S+) "
     find_stuff = re.compile(find_requester_time_resource)
     requester_time_resource = {}
     requesters = {} # {requester : number of requests they made}
     resources = {} # {resource : number of requests for each resource}
-    for line in fuck_regular_expressions:
+    for line in data:
         stuff = find_stuff.findall(line)
         if len(stuff) > 0:
             requester, resource = stuff[0]
