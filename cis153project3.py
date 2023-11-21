@@ -9,17 +9,6 @@ CIS153: Project 3
 
 import re
 
-'''
-def log():
-
-        find_requester_time_resource = "^(\S+) - - \[.+\] \"[A-Z]+ (\S+) "
-        compiled_data = re.compile(find_requester_time_resource)
-        for line in file:
-            data = compiled_data.search(line)
-            #print(data)
-    return data
-'''
-
 def parse_lines():
     with open("access_log.txt", "r") as file:
         find_requester_time_resource = "^(\S+) - - \[.+\] \"[A-Z]+ (\S+) "
